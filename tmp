@@ -1,0 +1,50 @@
+<?php
+
+namespace App\Modeles;
+
+use Illuminate\Database\Eloquent\Model;
+use DB;
+
+class Conference extends Model
+{
+    public function getLesConferences()
+    {
+        $lesConferences=DB::table('Conference')->get();
+        return $lesConferences;
+    }
+}
+
+
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Modeles\Conference;
+
+class Controller_Conference extends Controller
+{
+    //
+    public function getLesConferences()
+    {
+        $conference=new Conference();
+        $lesConferences= $conference->getLesConferences();
+        return view('listeConferences',compact('lesConferences'));
+    }
+}
+
+
+<table class="table table-bordered table-striped">
+        <thread>
+            <th> ID </th>
+            <th> Description </th>
+            <th> intitulé </th>
+        </thread>
+    @foreach($lesConferences as $Conference)
+        <tr>
+            <td> { { $Conference->idConf } }</td>
+            <td> { { $Conference->descriptionConf } }</td>
+            <td> { { $Conference->intituleConf } }</td>
+        </tr>
+    @endforeach
+</table>
